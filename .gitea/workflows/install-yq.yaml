@@ -12,20 +12,24 @@ on:
 
 jobs:
   install-yq:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runs-on }}
     strategy:
       matrix:
         include:
           # Linux
-          - yq-arch: "amd64"
+          - runs-on: "ubuntu-latest-amd64"
+            yq-arch: "amd64"
             yq-os: "linux"
-          - yq-arch: "arm64"
+          - runs-on: "ubuntu-latest-arm64"
+            yq-arch: "arm64"
             yq-os: "linux"
           # Darwin
-          - yq-arch: "amd64"
-            yq-os: "darwin"
-          - yq-arch: "arm64"
-            yq-os: "darwin"
+          # - runs-on: "macos-latest-amd64"
+          #   yq-arch: "amd64"
+          #   yq-os: "darwin"
+          # - runs-on: "macos-latest-arm64"
+          #   yq-arch: "arm64"
+          #   yq-os: "darwin"
     steps:
       - uses: actions/checkout@v7.0.0
       - name: Install yq
