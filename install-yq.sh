@@ -78,5 +78,5 @@ echo "INFO: Installed ${yq_installed_version} in ${bin_path}"
 
 # Ensure yq is in PATH for subsequent steps
 if [[ -n "${GITHUB_PATH:-}" ]]; then
-  echo "$(dirname "${bin_path}")" >> "${GITHUB_PATH}"
+  "$(dirname "${bin_path}")" >> "${GITHUB_PATH}"
 fi

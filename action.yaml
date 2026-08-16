@@ -2,6 +2,10 @@ name: "ArtifactHub Annotations"
 description: "Generate ArtifactHub changelog annotations from git commit history and add them to Chart.yaml"
 
 inputs:
+  chart-path:
+    description: "Path to the Helm chart file"
+    default: "./Chart.yaml"
+    required: false
   old-tag:
     description: "Start tag for changelog generation. If not set, auto-detected from git tags."
     required: false
@@ -49,7 +53,7 @@ runs:
     - name: Add ArtifactHub annotations
       shell: bash
       env:
+        CHART_FILE: ${{ inputs.chart-path }}
         INPUT_OLD_TAG: ${{ inputs.old-tag }}
         INPUT_NEW_TAG: ${{ inputs.new-tag }}
       run: "${GITHUB_ACTION_PATH}/add-annotations.sh"
-

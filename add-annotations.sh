@@ -6,7 +6,7 @@
 
 set -euo pipefail
 
-readonly CHART_FILE="Chart.yaml"
+readonly CHART_FILE="${CHART_FILE:="Chart.yaml"}"
 readonly RC_PATTERN="\-rc([-\.][0-9]+)?$"
 
 CHANGE_LOG_YAML=""
