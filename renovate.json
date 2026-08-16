@@ -13,9 +13,9 @@
         "^README\\.md$"
       ],
       "matchStrings": [
-        "volker.raschek/ah-annotations@(?<currentValue>\\d+\\.\\d+\\.\\d+)"
+        "uses: volker\\.raschek/ah-annotation@(?<currentValue>[^\\s\"']+)"
       ],
-      "depNameTemplate": "volker.raschek/ah-annotations",
+      "depNameTemplate": "volker.raschek/ah-annotation",
       "datasourceTemplate": "git-tags",
       "versioningTemplate": "semver"
     },
@@ -25,7 +25,7 @@
         "^README\\.md$"
       ],
       "matchStrings": [
-        "actions/checkout@(?<currentValue>.*)"
+        "uses: actions/checkout@(?<currentValue>[^\\s\"']+)"
       ],
       "depNameTemplate": "actions/checkout",
       "datasourceTemplate": "github-releases",
@@ -40,7 +40,7 @@
       ],
       "automerge": true,
       "matchDepNames": [
-        "volker.raschek/ah-annotations"
+        "volker.raschek/ah-annotation"
       ],
       "matchUpdateTypes": [
         "major",
