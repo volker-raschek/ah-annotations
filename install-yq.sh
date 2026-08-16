@@ -14,7 +14,7 @@ YQ_VERSION="${YQ_VERSION:="${internal_yq_version}"}"
 case "${YQ_OS:-}" in
   linux*)     ;;
   darwin*)    ;;
-  *)          echo "Unsupported OS: $(uname -s)"; exit 1;;
+  *)          echo "ERROR: Unsupported OS: $(uname -s)"; exit 1;;
 esac
 
 
@@ -22,7 +22,7 @@ esac
 case "${YQ_ARCH:-}" in
   amd64*  | x86_64*)  YQ_ARCH="amd64" ;;
   aarch64 | arm64*)     YQ_ARCH="arm64" ;;
-  *)          echo "Unsupported architecture: $(uname -m)"; exit 1;;
+  *)          echo "ERROR: Unsupported architecture: $(uname -m)"; exit 1;;
 esac
 
 # Build download URL if not explicitly provided
@@ -41,7 +41,7 @@ fi
 
 # Download and extract yq binary from .tar.gz
 if [[ "${YQ_DOWNLOAD_URL}" =~ \.tar\.gz$ ]]; then
-  echo "Downloading and extracting yq from ${YQ_DOWNLOAD_URL}..."
+  echo "INFO: Downloading and extracting yq from ${YQ_DOWNLOAD_URL}..."
   tmp_dir="$(mktemp -d)"
   trap 'rm -rf "${tmp_dir}"' EXIT
 
@@ -61,7 +61,7 @@ if [[ "${YQ_DOWNLOAD_URL}" =~ \.tar\.gz$ ]]; then
 
 # Download yq binary directly
 else
-  echo "Downloading yq from ${YQ_DOWNLOAD_URL}..."
+  echo "INFO: Downloading yq from ${YQ_DOWNLOAD_URL}..."
 
   curl \
     --fail \
@@ -74,7 +74,7 @@ fi
 chmod +x "${bin_path}"
 
 yq_installed_version="$("${bin_path}" --version)"
-echo "Installed ${yq_installed_version} in ${bin_path}"
+echo "INFO: Installed ${yq_installed_version} in ${bin_path}"
 
 # Ensure yq is in PATH for subsequent steps
 if [[ -n "${GITHUB_PATH:-}" ]]; then
