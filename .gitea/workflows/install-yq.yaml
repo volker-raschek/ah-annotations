@@ -1,0 +1,39 @@
+name: Install yq
+
+on:
+  pull_request:
+    types: [ "opened", "reopened", "synchronize" ]
+  push:
+    branches:
+    - '**'
+    tags-ignore:
+    - '**'
+  workflow_dispatch: {}
+
+jobs:
+  install-yq:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          # Linux
+          - yq-arch: "amd64"
+            yq-os: "linux"
+          - yq-arch: "arm64"
+            yq-os: "linux"
+          # Darwin
+          - yq-arch: "amd64"
+            yq-os: "darwin"
+          - yq-arch: "arm64"
+            yq-os: "darwin"
+    steps:
+      - uses: actions/checkout@v7.0.0
+      - name: Install yq
+        shell: bash
+        env:
+          YQ_ARCH: ${{ matrix.yq-arch }}
+          YQ_BINARY_NAME: ${{ inputs.yq-binary-name }}
+          YQ_DOWNLOAD_URL: ${{ inputs.yq-download-url }}
+          YQ_OS: ${{ matrix .yq-os }}
+          YQ_VERSION: ${{ inputs.yq-version }}
+        run: ./install-yq.sh
