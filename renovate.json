@@ -16,6 +16,7 @@
         "uses: volker\\.raschek/ah-annotation@(?<currentValue>[^\\s\"']+)"
       ],
       "depNameTemplate": "volker.raschek/ah-annotation",
+      "packageNameTemplate": "https://git.cryptic.systems/volker.raschek/ah-annotation",
       "datasourceTemplate": "git-tags",
       "versioningTemplate": "semver"
     },
