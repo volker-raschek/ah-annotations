@@ -1,6 +1,8 @@
 # ah-annotation
 
-GitHub Action to generate ArtifactHub changelog annotations from Git commit history and add them to `Chart.yaml`.
+GitHub Action to generate [ArtifactHub
+annotations](https://artifacthub.io/docs/topics/annotations/helm/#supported-annotations) from Git commit history and add
+them to `Chart.yaml`.
 
 The action parses conventional commit messages between two Git tags and produces an `artifacthub.io/changes` annotation.
 Pre-release tags (matching `-rc`) are detected automatically and result in an `artifacthub.io/prerelease` annotation
@@ -53,6 +55,17 @@ steps:
 - The repository must be checked out with full history (`fetch-depth: 0`).
 - A `Chart.yaml` file must exist at the path specified by `chart-path`.
 - Commit messages must follow the [Conventional Commits](https://www.conventionalcommits.org/) format.
+
+## Pre-releases
+
+Tags matching the pattern `-rc` (e.g. `v1.0.0-rc.1`, `v2.0.0-rc`) are treated as pre-releases.
+When `new-tag` is a pre-release tag, the action:
+
+1. Sets `artifacthub.io/prerelease: "true"` in `Chart.yaml`.
+2. Skips changelog generation entirely.
+
+When auto-detecting tags (no explicit `old-tag`/`new-tag`), the action ignores pre-release tags and selects the two
+most recent stable tags instead.
 
 ## Commit type mapping
 
