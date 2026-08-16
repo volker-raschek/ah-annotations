@@ -72,7 +72,9 @@ else
 fi
 
 chmod +x "${bin_path}"
-echo "Installed yq version $(${bin_path} --version) in ${bin_path}"
+
+yq_installed_version="$("${bin_path}" --version)"
+echo "Installed ${yq_installed_version} in ${bin_path}"
 
 # Ensure yq is in PATH for subsequent steps
 if [[ -n "${GITHUB_PATH:-}" ]]; then
