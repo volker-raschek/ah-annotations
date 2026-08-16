@@ -13,7 +13,7 @@
         "^README\\.md$"
       ],
       "matchStrings": [
-        "uses: volker\\.raschek/ah-annotations@(?<currentValue>[^\\s\"']+)"
+        "uses: volker\\.raschek\/ah-annotations@(?<currentValue>[^\\s\"']+)"
       ],
       "depNameTemplate": "volker.raschek/ah-annotations",
       "packageNameTemplate": "https://git.cryptic.systems/volker.raschek/ah-annotations",
@@ -47,6 +47,21 @@
         "major",
         "minor",
         "patch"
+      ]
+    },
+    {
+      "addLabels": [
+        "renovate/automerge",
+        "renovate/documentation"
+      ],
+      "automerge": true,
+      "matchDepNames": [
+        "actions/checkout"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pinDigest"
       ]
     }
   ],
