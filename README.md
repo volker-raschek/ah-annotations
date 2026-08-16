@@ -37,15 +37,21 @@ steps:
 
 ## Inputs
 
-| Name      | Required | Default       | Description                          |
-| --------- | -------- | ------------- | ------------------------------------ |
-| `old-tag` | no       | auto-detected | Start tag for changelog generation.  |
-| `new-tag` | no       | auto-detected | End tag for changelog generation.    |
+| Name               | Required | Default                              | Description                                |
+| ------------------ | -------- | ------------------------------------ | ------------------------------------------ |
+| `chart-path`       | no       | `${{ github.workspace }}/Chart.yaml` | Path to the Helm chart file.               |
+| `old-tag`          | no       | auto-detected                        | Start tag for changelog generation.        |
+| `new-tag`          | no       | auto-detected                        | End tag for changelog generation.          |
+| `yq-version`       | no       | `v4.44.6`                            | Version of yq to install.                  |
+| `yq-arch`          | no       | auto-detected                        | Architecture of yq binary to download.     |
+| `yq-os`            | no       | auto-detected                        | Operating system of yq binary to download. |
+| `yq-binary-name`   | no       | `yq`                                 | Name of the yq binary to download.         |
+| `yq-download-url`  | no       | auto-built                           | Full URL to download yq from.              |
 
 ## Requirements
 
 - The repository must be checked out with full history (`fetch-depth: 0`).
-- A `Chart.yaml` file must exist in the working directory.
+- A `Chart.yaml` file must exist at the path specified by `chart-path`.
 - Commit messages must follow the [Conventional Commits](https://www.conventionalcommits.org/) format.
 
 ## Commit type mapping
