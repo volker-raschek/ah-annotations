@@ -13,10 +13,10 @@
         "^README\\.md$"
       ],
       "matchStrings": [
-        "uses: volker\\.raschek/ah-annotation@(?<currentValue>[^\\s\"']+)"
+        "uses: volker\\.raschek/ah-annotations@(?<currentValue>[^\\s\"']+)"
       ],
-      "depNameTemplate": "volker.raschek/ah-annotation",
-      "packageNameTemplate": "https://git.cryptic.systems/volker.raschek/ah-annotation",
+      "depNameTemplate": "volker.raschek/ah-annotations",
+      "packageNameTemplate": "https://git.cryptic.systems/volker.raschek/ah-annotations",
       "datasourceTemplate": "git-tags",
       "versioningTemplate": "semver"
     },
@@ -41,7 +41,7 @@
       ],
       "automerge": true,
       "matchDepNames": [
-        "volker.raschek/ah-annotation"
+        "volker.raschek/ah-annotations"
       ],
       "matchUpdateTypes": [
         "major",

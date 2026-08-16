@@ -17,7 +17,7 @@ steps:
   - uses: actions/checkout@v4
     with:
       fetch-depth: 0
-  - uses: volker.raschek/ah-annotation@v1
+  - uses: volker.raschek/ah-annotations@v1
 ```
 
 ### Explicit tags
@@ -29,7 +29,7 @@ steps:
   - uses: actions/checkout@v4
     with:
       fetch-depth: 0
-  - uses: volker.raschek/ah-annotation@v1.0.0
+  - uses: volker.raschek/ah-annotations@v1.0.0
     with:
       old-tag: v1.0.0
       new-tag: v2.0.0
