@@ -14,7 +14,7 @@ Without explicit inputs the action determines the two most recent non-RC tags fr
 
 ```yaml
 steps:
-  - uses: actions/checkout@v5.1.0
+  - uses: actions/checkout@v7.0.1
     with:
       fetch-depth: 0
   - uses: volker.raschek/ah-annotations@v0.0.1
@@ -26,7 +26,7 @@ Pass `old-tag` and `new-tag` to control the commit range:
 
 ```yaml
 steps:
-  - uses: actions/checkout@v5.1.0
+  - uses: actions/checkout@v7.0.1
     with:
       fetch-depth: 0
   - uses: volker.raschek/ah-annotations@v0.0.1
