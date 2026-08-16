@@ -41,27 +41,13 @@
       ],
       "automerge": true,
       "matchDepNames": [
+        "actions/checkout",
         "volker.raschek/ah-annotations"
       ],
       "matchUpdateTypes": [
         "major",
         "minor",
         "patch"
-      ]
-    },
-    {
-      "addLabels": [
-        "renovate/automerge",
-        "renovate/documentation"
-      ],
-      "automerge": true,
-      "matchDepNames": [
-        "actions/checkout"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "pinDigest"
       ]
     }
   ],
