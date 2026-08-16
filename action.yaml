@@ -1,0 +1,55 @@
+name: "ArtifactHub Annotations"
+description: "Generate ArtifactHub changelog annotations from git commit history and add them to Chart.yaml"
+
+inputs:
+  old-tag:
+    description: "Start tag for changelog generation. If not set, auto-detected from git tags."
+    required: false
+    default: ""
+  new-tag:
+    description: "End tag for changelog generation. If not set, auto-detected from git tags."
+    required: false
+    default: ""
+  yq-arch:
+    description: "Architecture of yq binary to download. If not set, auto-detected from system architecture."
+    required: false
+    default: ""
+  yq-os:
+    description: "Operating system of yq binary to download. If not set, auto-detected from system OS."
+    required: false
+    default: ""
+  yq-binary-name:
+    description: "Name of the yq binary to download. If not set, defaults to 'yq'."
+    required: false
+    default: "yq"
+  yq-download-url:
+    description: |
+      URL to download yq from. Name of the binary must be 'yq'. The distribution and architecture are automatically
+      detected if undefined. The distribution and architecture will we underscore separated in the URL, e.g. `yq_linux_amd64`
+    required: false
+    default: ""
+  yq-version:
+    description: "Version of yq to install"
+    required: false
+    default: "v4.44.6"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install yq
+      shell: bash
+      env:
+        YQ_ARCH: ${{ inputs.yq-arch }}
+        YQ_BINARY_NAME: ${{ inputs.yq-binary-name }}
+        YQ_DOWNLOAD_URL: ${{ inputs.yq-download-url }}
+        YQ_OS: ${{ inputs.yq-os }}
+        YQ_VERSION: ${{ inputs.yq-version }}
+      run: "${GITHUB_ACTION_PATH}/install-yq.sh"
+
+    - name: Add ArtifactHub annotations
+      shell: bash
+      env:
+        INPUT_OLD_TAG: ${{ inputs.old-tag }}
+        INPUT_NEW_TAG: ${{ inputs.new-tag }}
+      run: "${GITHUB_ACTION_PATH}/add-annotations.sh"
+

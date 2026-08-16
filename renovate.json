@@ -1,0 +1,62 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "local>volker.raschek/renovate-config:default#master",
+    "local>volker.raschek/renovate-config:actions#master",
+    "local>volker.raschek/renovate-config:npm#master",
+    "local>volker.raschek/renovate-config:regexp#master"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^README\\.md$"
+      ],
+      "matchStrings": [
+        "volker.raschek/ah-annotations@(?<currentValue>\\d+\\.\\d+\\.\\d+)"
+      ],
+      "depNameTemplate": "volker.raschek/ah-annotations",
+      "datasourceTemplate": "git-tags",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^README\\.md$"
+      ],
+      "matchStrings": [
+        "actions/checkout@(?<currentValue>.*)"
+      ],
+      "depNameTemplate": "actions/checkout",
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
+    }
+  ],
+  "packageRules": [
+    {
+      "addLabels": [
+        "renovate/automerge",
+        "renovate/documentation"
+      ],
+      "automerge": true,
+      "matchDepNames": [
+        "volker.raschek/ah-annotations"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ]
+    }
+  ],
+  "postUpgradeTasks": {
+    "commands": [
+      "install-tool node",
+      "make readme"
+    ],
+    "fileFilters": [
+      "README.md"
+    ],
+    "executionMode": "update"
+  }
+}

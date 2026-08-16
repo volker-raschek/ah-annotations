@@ -1,0 +1,19 @@
+{
+  "name": "ah-annotations",
+  "homepage": "https://git.cryptic.systems/volker.raschek/ah-annotations.git",
+  "license": "MIT",
+  "private": true,
+  "engineStrict": true,
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "scripts": {
+    "readme:link": "markdown-link-check *.md",
+    "readme:lint": "markdownlint *.md -f"
+  },
+  "devDependencies": {
+    "markdown-link-check": "^3.13.6",
+    "markdownlint-cli": "^0.49.0"
+  }
+}
