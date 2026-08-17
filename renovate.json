@@ -48,6 +48,19 @@
   "packageRules": [
     {
       "addLabels": [
+        "renovate/automerge"
+      ],
+      "automerge": true,
+      "matchDepNames": [
+        "mikefarah/yq"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "addLabels": [
         "renovate/automerge",
         "renovate/documentation"
       ],

@@ -1,0 +1,68 @@
+name: Auto release tagged
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+    - install-yq.sh
+
+env:
+  GIT_EMAIL: noreply@cryptic.systems
+  GIT_USER: CSRBot
+
+jobs:
+  tag_on_change:
+    permissions:
+      actions: write
+      contents: write
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0
+
+      - name: Check if DC_VERSION line changed
+        id: check_change
+        run: |
+          echo "changed=false" >> $GITHUB_OUTPUT
+
+          for file in install-yq.sh; do
+            if git diff HEAD~1 HEAD -- "${file}" | grep --quiet '^[+-]internal_yq_version'; then
+              echo "internal_yq_version line changed."
+              echo "changed=true" >> $GITHUB_OUTPUT
+              break
+            fi
+          done
+
+      - name: Stop if no change detected
+        if: steps.check_change.outputs.changed == 'false'
+        run: echo "No internal_yq_version change. Exiting..."
+
+      - name: Get latest tag
+        if: steps.check_change.outputs.changed == 'true'
+        id: get_tag
+        run: |
+          latest_tag=$(git tag --sort=-v:refname | grep --extended-regexp '^v[0-9]+\.[0-9]+\.[0-9]+$' | head --lines 1 || echo "v0.0.0")
+          echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+          echo "Latest tag: $latest_tag"
+
+      - name: Increment patch version
+        if: steps.check_change.outputs.changed == 'true'
+        id: bump
+        run: |
+          latest_tag=${{ steps.get_tag.outputs.latest_tag }}
+          IFS='.' read -r major minor patch <<< "${latest_tag#v}"
+          patch=$((patch + 1))
+          new_tag="v${major}.${minor}.${patch}"
+          echo "new_tag=$new_tag" >> $GITHUB_OUTPUT
+          echo "New tag: $new_tag"
+
+      - name: Create and push new tag
+        if: steps.check_change.outputs.changed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          new_tag=${{ steps.bump.outputs.new_tag }}
+          git tag -a "${new_tag}" -m "${new_tag}"
+          git push origin "${new_tag}"
