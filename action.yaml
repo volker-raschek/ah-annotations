@@ -35,7 +35,7 @@ inputs:
   yq-version:
     description: "Version of yq to install"
     required: false
-    default: "v4.44.6" # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
+    default: "v4.53.3" # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
 
 runs:
   using: "composite"
