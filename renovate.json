@@ -38,7 +38,7 @@
         "^README\\.md$"
       ],
       "matchStrings": [
-        "`(?<currentValue>[^\\s\"']+)`"
+        "| `(?<currentValue>[^\\s\"']+)`"
       ],
       "depNameTemplate": "mikefarah/yq",
       "datasourceTemplate": "github-releases",
