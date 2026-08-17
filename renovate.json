@@ -38,7 +38,7 @@
         "^README\\.md$"
       ],
       "matchStrings": [
-        "| `(?<currentValue>[^\\s\"']+)`"
+        "yq-version.[ \\t]+\\|[ \\t]+no[ \\t]+\\|[ \\t]+.(?<currentValue>v[\\d]+\\.[\\d]+\\.[\\d]+)"
       ],
       "depNameTemplate": "mikefarah/yq",
       "datasourceTemplate": "github-releases",
