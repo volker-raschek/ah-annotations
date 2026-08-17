@@ -44,7 +44,7 @@ steps:
 | `chart-path`       | no       | `${{ github.workspace }}/Chart.yaml` | Path to the Helm chart file.               |
 | `old-tag`          | no       | auto-detected                        | Start tag for changelog generation.        |
 | `new-tag`          | no       | auto-detected                        | End tag for changelog generation.          |
-| `yq-version`       | no       | `v4.44.6`                            | Version of yq to install.                  |
+| `yq-version`       | no       | `v4.53.3`                            | Version of yq to install.                  |
 | `yq-arch`          | no       | auto-detected                        | Architecture of yq binary to download.     |
 | `yq-os`            | no       | auto-detected                        | Operating system of yq binary to download. |
 | `yq-binary-name`   | no       | `yq`                                 | Name of the yq binary to download.         |
