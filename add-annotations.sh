@@ -7,7 +7,7 @@
 set -euo pipefail
 
 readonly CHART_FILE="${CHART_FILE:="Chart.yaml"}"
-readonly RC_PATTERN="\-rc([-\.][0-9]+)?$"
+readonly PRERELEASE_PATTERN="\-[a-zA-Z0-9]+([-\.][a-zA-Z0-9]+)*$"
 
 CHANGE_LOG_YAML=""
 
@@ -24,8 +24,8 @@ if [[ ! -f "${CHART_FILE}" ]]; then
 fi
 
 # Determine old and new tags
-DEFAULT_NEW_TAG="$(git tag --sort=-version:refname | grep --invert-match --perl-regexp "${RC_PATTERN}" | head --lines 1)"
-DEFAULT_OLD_TAG="$(git tag --sort=-version:refname | grep --invert-match --perl-regexp "${RC_PATTERN}" | head --lines 2 | tail --lines 1)"
+DEFAULT_NEW_TAG="$(git tag --sort=-version:refname | grep --invert-match --perl-regexp "${PRERELEASE_PATTERN}" | head --lines 1)"
+DEFAULT_OLD_TAG="$(git tag --sort=-version:refname | grep --invert-match --perl-regexp "${PRERELEASE_PATTERN}" | head --lines 2 | tail --lines 1)"
 
 if [[ -n "${INPUT_OLD_TAG:-}" ]]; then
   OLD_TAG="${INPUT_OLD_TAG}"
@@ -49,7 +49,7 @@ if [[ -z "$(git tag --list "${NEW_TAG}")" ]]; then
   exit 1
 fi
 
-if [[ "${NEW_TAG}" =~ ${RC_PATTERN} ]]; then
+if [[ "${NEW_TAG}" =~ ${PRERELEASE_PATTERN} ]]; then
   echo "INFO: Tag '${NEW_TAG}' is a prerelease, setting prerelease annotation and skipping changelog."
   yq --no-colors --inplace ".annotations.\"artifacthub.io/prerelease\" = \"true\" | sort_keys(.)" "${CHART_FILE}"
   exit 0

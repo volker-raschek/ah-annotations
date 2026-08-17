@@ -5,14 +5,14 @@ annotations](https://artifacthub.io/docs/topics/annotations/helm/#supported-anno
 them to `Chart.yaml`.
 
 The action parses conventional commit messages between two Git tags and produces an `artifacthub.io/changes` annotation.
-Pre-release tags (matching `-rc`) are detected automatically and result in an `artifacthub.io/prerelease` annotation
-instead.
+Pre-release tags according to [SemVer 2.0](https://semver.org/) (e.g. `-alpha`, `-beta.1`, `-rc.2`) are detected
+automatically and result in an `artifacthub.io/prerelease` annotation instead.
 
 ## Usage
 
 ### Auto-detect tags
 
-Without explicit inputs the action determines the two most recent non-RC tags from the Git history:
+Without explicit inputs the action determines the two most recent stable (non-pre-release) tags from the Git history:
 
 ```yaml
 steps:
@@ -58,8 +58,8 @@ steps:
 
 ## Pre-releases
 
-Tags matching the pattern `-rc` (e.g. `v1.0.0-rc.1`, `v2.0.0-rc`) are treated as pre-releases.
-When `new-tag` is a pre-release tag, the action:
+Tags containing a hyphen-separated pre-release identifier according to [SemVer 2.0](https://semver.org/) are treated as
+pre-releases (e.g. `v1.0.0-alpha`, `v1.0.0-beta.1`, `v2.0.0-rc.2`). When `new-tag` is a pre-release tag, the action:
 
 1. Sets `artifacthub.io/prerelease: "true"` in `Chart.yaml`.
 2. Skips changelog generation entirely.
