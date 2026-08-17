@@ -38,6 +38,6 @@ jobs:
           YQ_ARCH: ${{ matrix.yq-arch }}
           YQ_BINARY_NAME: ${{ inputs.yq-binary-name }}
           YQ_DOWNLOAD_URL: ${{ inputs.yq-download-url }}
-          YQ_OS: ${{ matrix .yq-os }}
+          YQ_OS: ${{ matrix.yq-os }}
           YQ_VERSION: ${{ inputs.yq-version }}
         run: ./install-yq.sh
