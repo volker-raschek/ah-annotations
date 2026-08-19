@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-internal_yq_version=v4.53.3 # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
+internal_yq_version=v4.53.4 # renovate: datasource=github-releases depName=mikefarah/yq versioning=semver
 
 # Use :- for unset and handle empty strings from composite action inputs
 YQ_BINARY_NAME="${YQ_BINARY_NAME:="yq"}"
