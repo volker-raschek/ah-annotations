@@ -6,13 +6,14 @@ them to `Chart.yaml`.
 
 The action parses conventional commit messages between two Git tags and produces an `artifacthub.io/changes` annotation.
 Pre-release tags according to [SemVer 2.0](https://semver.org/) (e.g. `-alpha`, `-beta.1`, `-rc.2`) are detected
-automatically and result in an `artifacthub.io/prerelease` annotation instead.
+automatically and additionally result in an `artifacthub.io/prerelease` annotation.
 
 ## Usage
 
 ### Auto-detect tags
 
-Without explicit inputs the action determines the two most recent stable (non-pre-release) tags from the Git history:
+Without explicit inputs the action uses the currently checked out tag as end tag and the most recent stable
+(non-pre-release) tag as start tag:
 
 ```yaml
 steps:
@@ -59,13 +60,11 @@ steps:
 ## Pre-releases
 
 Tags containing a hyphen-separated pre-release identifier according to [SemVer 2.0](https://semver.org/) are treated as
-pre-releases (e.g. `v1.0.0-alpha`, `v1.0.0-beta.1`, `v2.0.0-rc.2`). When `new-tag` is a pre-release tag, the action:
+pre-releases (e.g. `v1.0.0-alpha`, `v1.0.0-beta.1`, `v2.0.0-rc.2`). When `new-tag` is a pre-release tag, the action sets
+`artifacthub.io/prerelease: "true"` in `Chart.yaml` in addition to the generated changelog.
 
-1. Sets `artifacthub.io/prerelease: "true"` in `Chart.yaml`.
-2. Skips changelog generation entirely.
-
-When auto-detecting tags (no explicit `old-tag`/`new-tag`), the action ignores pre-release tags and selects the two
-most recent stable tags instead.
+When auto-detecting tags (no explicit `old-tag`/`new-tag`), the end tag is the tag of the checked out commit - including
+pre-releases - while the start tag is always the most recent stable tag.
 
 ## Commit type mapping
 

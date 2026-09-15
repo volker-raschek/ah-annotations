@@ -23,8 +23,9 @@ if [[ ! -f "${CHART_FILE}" ]]; then
   exit 1
 fi
 
-# Determine old and new tags
-DEFAULT_NEW_TAG="$(git tag --sort=-version:refname | grep --invert-match --perl-regexp "${PRERELEASE_PATTERN}" | head --lines 1)"
+# Determine old and new tags. The new tag is the currently checked out one - including prereleases - so that
+# prereleases are detected. Only the old tag is restricted to stable releases.
+DEFAULT_NEW_TAG="$(git describe --tags --exact-match HEAD 2>/dev/null || git tag --sort=-version:refname | head --lines 1)"
 DEFAULT_OLD_TAG="$(git tag --sort=-version:refname | grep --invert-match --perl-regexp "${PRERELEASE_PATTERN}" | head --lines 2 | tail --lines 1)"
 
 if [[ -n "${INPUT_OLD_TAG:-}" ]]; then
@@ -50,9 +51,7 @@ if [[ -z "$(git tag --list "${NEW_TAG}")" ]]; then
 fi
 
 if [[ "${NEW_TAG}" =~ ${PRERELEASE_PATTERN} ]]; then
-  echo "INFO: Tag '${NEW_TAG}' is a prerelease, setting prerelease annotation and skipping changelog."
   yq --no-colors --inplace ".annotations.\"artifacthub.io/prerelease\" = \"true\" | sort_keys(.)" "${CHART_FILE}"
-  exit 0
 fi
 
 CHANGE_LOG_YAML="$(mktemp)"
